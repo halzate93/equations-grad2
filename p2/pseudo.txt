@@ -1,0 +1,28 @@
+Begin
+	read a, b, c;	//eq1
+	read d, e, f;	//eq2
+	read m, n;	//range, r E Z
+
+	cont := 0;	//interceptions
+
+	for (x:=m; x<=n; x++) do
+		y1 := a*x*x + b*x + c;
+		y2 := d*x*x + e*x + f;
+
+		if (y1 = y2) then
+			cont++;
+			print(x, y1);
+			draw(x, y1, true);	//different color
+		else
+			draw(x, y1, false);
+			draw(x, y2, false);
+		endif
+	endfor
+
+	if (cont = 0) then
+		print("No interceptions found");
+	endif
+End
+	
+
+	
