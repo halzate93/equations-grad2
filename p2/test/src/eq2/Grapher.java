@@ -72,9 +72,9 @@ public class Grapher extends JFrame{
         }
         
         done = true;
-        range = maxY - minY;
-        int dx = (getWidth()+2)/domain; //+2 for margin of the graph
-        int dy = (getHeight()+2)/range;
+        range = maxY - minY +1;
+        int dx = getWidth()/(domain+2); //+2 for margin of the graph
+        int dy = getHeight()/(range+2);
         
         Graphics2D g2d = (Graphics2D)graph.getGraphics();
         
