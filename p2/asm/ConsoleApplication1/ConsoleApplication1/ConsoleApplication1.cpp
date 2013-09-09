@@ -29,54 +29,44 @@ int _tmain(int argc, _TCHAR* argv[])
 	float finf = ((float)(fin));
 	float y1,y2;
 
-	while(inif<finf){
+	while(inif<=finf){
 		//halla y1 con el x actual(inif)
-		 __asm{
+		float temp;
+		__asm{
 			fld inif
-			fld st(0)
-			fld a1
-			fmul
-			fmul
-			fld inif
-			fld b1
-			fmul
-			fadd
-			fld c1
-			fadd
-			fst y1
+				fld st(0)
+				fmulp st(1),st(0)
+				fld a1
+				fmulp st(1),st(0)
+				fld inif
+				fld b1
+				fmulp st(1),st(0)
+				faddp st(1),st(0)
+				fld c1
+				faddp st(1),st(0)
+				fstp y1
 		};
-		 __asm{
+		__asm{
 			fld inif
-			fld st(0)
-			fld a2
-			fmul
-			fmul
-			fld inif
-			fld b2
-			fmul
-			fadd
-			fld c2
-			fadd
-			fst y2
+				fld st(0)
+				fmulp st(1),st(0)
+				fld a2
+				fmulp st(1),st(0)
+				fld inif
+				fld b2
+				fmulp st(1),st(0)
+				faddp st(1),st(0)
+				fld c2
+				faddp st(1),st(0)
+				fstp y2
 		};
+		printf("Ecuacion 1: x = %f , f(x) = %f \n",inif,y1);
+		printf("Ecuacion 2: x = %f , f(x) = %f \n",inif,y2);
 		if(y1==y2){
-			printf("las curvas se cruzan en X = %f , Y = %f ",inif,y1);
+			printf("las curvas se cruzan en X = %f , Y = %f \n",inif,y2);
 		}
 		inif++;
 	}
-	
-		 /*
-        int y1 = a*x*x + b*x + c;
-        int y2 = d*x*x + e*x + f;
-            
-        if(y1 == y2){   //Found an interception
-            cont++;
-            System.out.println("("+x+", "+y1+")");
-            g.addPoint(x, y2, true);
-        }else{
-            g.addPoint(x, y1, false);
-            g.addPoint(x, y2, false);
-        }*/
 	system("pause"); 
 	return 0;
 }
