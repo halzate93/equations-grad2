@@ -29,11 +29,19 @@ int _tmain(int argc, _TCHAR* argv[])
 	float finf = ((float)(fin));
 	float y1,y2;
 
-	while(inif<=finf){
-		//halla y1 con el x actual(inif)
-		float temp;
+		//inicia el ciclo (compara inif con finf si inif mayor termina la ejecucion saltando a end: http://www.website.masmforum.com/tutorials/fptute/fpuchap7.htm
 		__asm{
-			fld inif
+			ciclo:
+			fld inif	
+			fcomp finf
+			fstsw ax
+			fwait
+			sahf
+			ja end
+		}
+		//halla y1 con el x actual(inif)
+		__asm{
+				fld inif
 				fld st(0)
 				fmulp st(1),st(0)
 				fld a1
@@ -46,8 +54,9 @@ int _tmain(int argc, _TCHAR* argv[])
 				faddp st(1),st(0)
 				fstp y1
 		};
+		//halla y2 con el x actual(inif)
 		__asm{
-			fld inif
+				fld inif
 				fld st(0)
 				fmulp st(1),st(0)
 				fld a2
@@ -62,10 +71,29 @@ int _tmain(int argc, _TCHAR* argv[])
 		};
 		printf("Ecuacion 1: x = %f , f(x) = %f \n",inif,y1);
 		printf("Ecuacion 2: x = %f , f(x) = %f \n",inif,y2);
-		if(y1==y2){
-			printf("las curvas se cruzan en X = %f , Y = %f \n",inif,y2);
+		// compara y1, y2 si son iguales salta impr: si no salta next:
+		__asm{
+			fld y1	
+			fcomp y2
+			fstsw ax
+			fwait
+			sahf
+			jz impr
+			jmp next
+			impr:
 		}
+			printf("las curvas se cruzan en X = %f , Y = %f \n",inif,y2);
+		__asm{
+			next:
+		}
+
 		inif++;
+		// salta al inicio del ciclo
+		__asm{
+			jmp ciclo
+		}
+	__asm {
+		end:
 	}
 	system("pause"); 
 	return 0;
