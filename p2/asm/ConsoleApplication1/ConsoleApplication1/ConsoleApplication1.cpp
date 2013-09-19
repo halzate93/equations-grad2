@@ -5,7 +5,7 @@
 #include <cstdlib> 
 #include <iostream>
 #include <sstream>
-//using namespace std;
+using namespace std;
 
 int _tmain(int argc, _TCHAR* argv[])
 {
@@ -30,10 +30,14 @@ int _tmain(int argc, _TCHAR* argv[])
 	float inif = ((float)(ini));
 	float finf = ((float)(fin));
 	float y1,y2;
-//	const char* args ;
-	//string args;	
-	//ostringstream osr;
-		//inicia el ciclo (compara inif con finf si inif mayor termina la ejecucion saltando a end: http://www.website.masmforum.com/tutorials/fptute/fpuchap7.htm
+	char aux [100];
+	char aux2 [100];
+	char buffer [10000];
+	char buffer2 [10000];
+	strcpy(buffer,"java -jar C:/Users/Mateo/Proyectos/Eafit/6/Organizacion/Ecuaciones2grado/p2/graficador/Graficador/dist/Graficador.jar");
+	strcpy(buffer2,"");
+
+//inicia el ciclo (compara inif con finf si inif mayor termina la ejecucion saltando a end: http://www.website.masmforum.com/tutorials/fptute/fpuchap7.htm
 		__asm{
 			ciclo:
 			fld inif	
@@ -57,14 +61,9 @@ int _tmain(int argc, _TCHAR* argv[])
 				fld c1
 				faddp st(1),st(0)
 				fstp y1
-		};/*
-		args += " ";
-		osr<<args<<inif;
-		args = osr.str();
-		args += " ";
-		osr<<args<<y1;
-		args = osr.str();
-		*/
+		};
+		sprintf(aux," %f %f",inif,y1);
+		strcat(buffer,aux);
 		//halla y2 con el x actual(inif)
 		__asm{
 				fld inif
@@ -80,13 +79,15 @@ int _tmain(int argc, _TCHAR* argv[])
 				faddp st(1),st(0)
 				fstp y2
 		};
+		sprintf(aux2," %f %f",inif,y2);
+		strcat(buffer2,aux2);
 		/*
 		args += " ";
-		osr<<args<<inif;
-		args = osr.str();
+		//osr<<args<<inif;
+		args += inif;//osr.str();
 		args += " ";
-		osr<<args<<y2;
-		args = osr.str();
+		//osr<<args<<y2;
+		args += y2;// osr.str();
 		*/
 		printf("Ecuacion 1: x = %f , f(x) = %f \n",inif,y1);
 		printf("Ecuacion 2: x = %f , f(x) = %f \n",inif,y2);
@@ -116,14 +117,11 @@ int _tmain(int argc, _TCHAR* argv[])
 	}
 	//string dir ="java -jar C:/Users/Mateo/Proyectos/Eafit/6/Organizacion/Ecuaciones2grado/p2/graficador/Graficador/dist/Graficador.jar ";
 	//dir+=args;
-	//const char* call = dir.c_str();
-	char value;
-	//printf(call);
-	FILE* child = _popen("java -jar C:/Users/Mateo/Proyectos/Eafit/6/Organizacion/Ecuaciones2grado/p2/graficador/Graficador/dist/Graficador.jar 0 0 1 1 2 4 3 9","r"); // _popen("java -jar test.jar text1 text2", "r");
-	if (fscanf(child, "%s", &value) == 1)
-	{
-		fprintf(stdout,"Got Value: %f\n", value);
-	}
+	//sprintf (buffer,"java -jar C:/Users/Mateo/Proyectos/Eafit/6/Organizacion/Ecuaciones2grado/p2/graficador/Graficador/dist/Graficador.jar");
+	//const char* call = buffer;
+	strcat(buffer,buffer2);
+// _popen("java -jar C:/Users/Mateo/Proyectos/Eafit/6/Organizacion/Ecuaciones2grado/p2/graficador/Graficador/dist/Graficador.jar 0 0 1 1 2 4 3 9","r"); // _popen("java -jar test.jar text1 text2", "r");
+	_popen(buffer,"r"); // _popen("java -jar test.jar text1 text2", "r");
 	system("pause"); 
 	return 0;
 }

@@ -23,11 +23,11 @@ public class Graficador extends JFrame {
      */
     public static void main(String[] args) {
         // TODO code application logic here
-        Graficador g = new Graficador(0, 10);
+        Graficador g = new Graficador((int)Float.parseFloat(args[0]), (int)Float.parseFloat(args[args.length-2]));
         int i = 0;
         while (i < args.length) {
-            int x = Integer.parseInt(args[i]);
-            int y = Integer.parseInt(args[i + 1]);
+            int x = (int)Float.parseFloat(args[i]);
+            int y = (int)Float.parseFloat(args[i+1]);
             g.addPoint(x, y, false);
             i += 2;
         }
