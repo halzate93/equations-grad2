@@ -96,11 +96,13 @@ public class Graficador extends JFrame {
         g2d.setColor(Color.black);
         for (int i = 0; i < points.size(); i++) {
             Point p = points.get(i);
-            g2d.drawString("(" + p.x + ", " + p.y + ")", (p.x - minX + 1) * dx, height - ((p.y - minY + 1) * dy)); //+1 for margin
             if(i < points.size()-1){
                 Point p2 = points.get(i+1);
-                g2d.drawLine(p.x, p.y, p2.x, p2.y);
+                if(p2.x > p.x){
+                    g2d.drawLine((p.x - minX + 1) * dx, height - ((p.y - minY + 1) * dy), (p2.x - minX + 1) * dx, height - ((p2.y - minY + 1) * dy));
+                }
             }
+            g2d.drawString("(" + p.x + ", " + p.y + ")", (p.x - minX + 1) * dx, height - ((p.y - minY + 1) * dy)); //+1 for margin
         }
 
         //Intercepts
