@@ -97,6 +97,10 @@ public class Graficador extends JFrame {
         for (int i = 0; i < points.size(); i++) {
             Point p = points.get(i);
             g2d.drawString("(" + p.x + ", " + p.y + ")", (p.x - minX + 1) * dx, height - ((p.y - minY + 1) * dy)); //+1 for margin
+            if(i < points.size()-1){
+                Point p2 = points.get(i+1);
+                g2d.drawLine(p.x, p.y, p2.x, p2.y);
+            }
         }
 
         //Intercepts
