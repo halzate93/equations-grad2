@@ -1,4 +1,4 @@
-// ConsoleApplication1.cpp: define el punto de entrada de la aplicación de consola.
+// ConsoleApplication1.cpp: define el punto de entrada de la aplicaciï¿½n de consola.
 //
 #include "stdafx.h"
 #include <string>
@@ -38,21 +38,21 @@ int _tmain(int argc, _TCHAR* argv[])
 	strcpy(buffer2,"");
 
 //inicia el ciclo (compara inif con finf si inif mayor termina la ejecucion saltando a end: http://www.website.masmforum.com/tutorials/fptute/fpuchap7.htm
-		__asm{
+		__asm{			
 			ciclo:
-			fld inif	
-			fcomp finf
-			fstsw ax
-			fwait
-			sahf
-			ja endciclo
+			fld inif	//carga a la pila floating point unit	
+			fcomp finf	//compara el top del fpu con finf
+			fstsw ax	//carga los flags del fpu en ax
+			fwait		//esperar a que termine lo anterior
+			sahf		//carga ax a los flags del procesador
+			ja endciclo	//salta si inif por encima de finf
 		}
 		//halla y1 con el x actual(inif)
 		__asm{
-				fld inif
-				fld st(0)
-				fmulp st(1),st(0)
-				fld a1
+				fld inif		//push inif
+				fld st(0)		//push inif
+				fmulp st(1),st(0)	//st1 = x^2 y pop st0
+				fld a1			
 				fmulp st(1),st(0)
 				fld inif
 				fld b1
@@ -95,10 +95,10 @@ int _tmain(int argc, _TCHAR* argv[])
 		__asm{
 			fld y1	
 			fcomp y2
-			fstsw ax
+			fstsw ax	//carga los flags del fpu
 			fwait
-			sahf
-			jz impr
+			sahf		//carga en los flags lo que hay en ax
+			jz impr		//pregunta por cero
 			jmp nextciclo
 			impr:
 		}
